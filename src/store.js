@@ -4,12 +4,18 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  strict: true,
   state: {
     file: null
   },
   mutations: {
-    updateFile(state) {
-      return state.file;
+    updateFile(state, payload) {
+      state.file = payload;
+    }
+  },
+  actions: {
+    updateFile(context, payload) {
+      context.commit("updateFile", payload);
     }
   }
 });

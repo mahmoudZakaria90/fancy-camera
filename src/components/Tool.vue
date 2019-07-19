@@ -1,5 +1,7 @@
 <template>
-  <div>{{file}}</div>
+  <div v-if="file">
+    <img v-bind:src="file" alt="image" />
+  </div>
 </template>
 
 <script>

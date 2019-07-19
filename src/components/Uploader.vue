@@ -1,15 +1,18 @@
 <template>
-  <form>
+  <div>
     <input @change="onUpload" type="file" />
     <button>Submit</button>
-  </form>
+  </div>
 </template>
 
 <script>
 export default {
   methods: {
     onUpload(e) {
-      this.file = e.target.files[0];
+      this.$store.dispatch(
+        "updateFile",
+        URL.createObjectURL(e.target.files[0])
+      );
     }
   }
 };
