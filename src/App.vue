@@ -2,18 +2,21 @@
   <div id="app">
     <Header />
     <Uploader />
+    <Tool />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
 import Uploader from "./components/Uploader.vue";
+import Tool from "./components/Tool.vue";
 
 export default {
   name: "app",
   components: {
     Header,
-    Uploader
+    Uploader,
+    Tool
   }
 };
 </script>

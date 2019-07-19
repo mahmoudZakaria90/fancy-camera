@@ -7,11 +7,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      file: null
-    };
-  },
   methods: {
     onUpload(e) {
       this.file = e.target.files[0];
