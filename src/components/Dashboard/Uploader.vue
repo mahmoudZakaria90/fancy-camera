@@ -1,7 +1,7 @@
 <template>
   <div>
     <input @change="onUpload" type="file" />
-    <button>Submit</button>
+    <router-link to="/tool" tag="button">Submit</router-link>
   </div>
 </template>
 
@@ -20,6 +20,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="sass">
-  form
+  div
     margin-top: 60px   
 </style>
