@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @change="onUpload" type="file" />
+    <input @change="upload" type="file" />
     <router-link to="/tool" tag="button">Submit</router-link>
   </div>
 </template>
@@ -8,9 +8,9 @@
 <script>
 export default {
   methods: {
-    onUpload(e) {
+    upload(e) {
       this.$store.dispatch(
-        "updateFile",
+        "uploadFile",
         URL.createObjectURL(e.target.files[0])
       );
     }

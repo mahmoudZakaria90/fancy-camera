@@ -6,30 +6,28 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   strict: true,
   state: {
-    file: null,
-    cameraCoords: {
-      x: 0,
-      y: 0
+    file: {
+      file: null,
+      offsetLeft: 0,
+      offsetTop: 0
     }
   },
   mutations: {
-    updateFile(state, payload) {
-      state.file = payload;
+    uploadFile(state, payload) {
+      state.file.file = payload;
     },
-    setCameraCoords(state, payload) {
-      const { x, y } = payload;
-      state.cameraCoords = {
-        x,
-        y
-      };
+    setImgOffset(state, payload) {
+      const { offsetLeft, offsetTop } = payload
+      state.file.offsetLeft = offsetLeft;
+      state.file.offsetTop = offsetTop;
     }
   },
   actions: {
-    updateFile(context, payload) {
-      context.commit("updateFile", payload);
+    uploadFile(context, payload) {
+      context.commit("uploadFile", payload);
     },
-    setCameraCoords(context, payload) {
-      context.commit("setCameraCoords", payload);
+    setImgOffset(context, payload) {
+      context.commit('setImgOffset', payload)
     }
   }
 });

@@ -1,6 +1,6 @@
 <template>
   <div v-if="file" @mousemove="setCameraCoords">
-    <img v-bind:src="file" alt="image" @mousemove="setImgCoords" />
+    <img ref="img" :src="file" alt="image" />
     <Camera
       :coordLeft="coordLeft"
       :coordTop="coordTop"
@@ -31,20 +31,26 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.file;
+      return this.$store.state.file.file;
     }
   },
-  created() {
-    !this.file && this.$router.push("/");
+  mounted() {
+    if (!this.file) {
+      this.$router.push("/");
+      return;
+    }
+    const img = this.$refs.img;
+    const offsetLeft = img.offsetLeft;
+    const offsetTop = img.offsetTop;
+    this.$store.dispatch("setImgOffset", {
+      offsetLeft,
+      offsetTop
+    });
   },
   methods: {
     setCameraCoords(e) {
       this.coordLeft = e.clientX;
       this.coordTop = e.clientY;
-    },
-    setImgCoords(e) {
-      e.stopPropagation();
-      console.log(e);
     }
   }
 };
