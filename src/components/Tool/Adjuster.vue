@@ -30,7 +30,7 @@ export default {
 
 <style scoped lang="sass">
   .adjuster
-    position: absolute
+    position: fixed
     background: lightblue
     top: 0
     left: 0

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @change="upload" type="file" id="uploader" hidden />
+    <input @change="upload" type="file" id="uploader" hidden accept="image/*" />
     <label for="uploader">
       <span>Choose file</span>
       <span>{{fileName}}</span>

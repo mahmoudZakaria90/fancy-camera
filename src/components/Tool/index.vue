@@ -45,7 +45,6 @@ export default {
       const img = this.$refs.img;
       const offsetLeft = img.offsetLeft;
       const offsetTop = img.offsetTop;
-      console.dir(img);
       this.$store.dispatch("setImgOffset", {
         offsetLeft,
         offsetTop
@@ -54,12 +53,14 @@ export default {
   },
   methods: {
     setCameraCoords(e) {
-      this.coordLeft = e.clientX;
-      this.coordTop = e.clientY;
+      this.coordLeft = e.pageX;
+      this.coordTop = e.pageY;
     }
   }
 };
 </script>
 
-<style>
+<style lang="sass" scoped>
+  img
+    margin-top: 100px
 </style>

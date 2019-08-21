@@ -3,9 +3,7 @@
     @click="capture"
     class="camera"
     :style="{
-      ...coords,
-      width: mutableWidth + 'px',
-      height: mutableHeight + 'px'
+      ...coords, width: mutableWidth + 'px', height: mutableHeight + 'px',
     }"
   ></div>
 </template>
