@@ -1,5 +1,5 @@
-<template>
-  <div v-if="file" @mousemove="setCameraCoords">
+<template v-if="file">
+  <div @mousemove="setCameraCoords">
     <img ref="img" :src="file" alt="image" />
     <Camera
       :coordLeft="coordLeft"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
+/*eslint no-console: ["error", { allow: ["warn", "log", "dir"] }] */
 import Adjuster from "./Adjuster";
 import Camera from "./Camera";
 
@@ -34,18 +34,23 @@ export default {
       return this.$store.state.file.file;
     }
   },
-  mounted() {
+  created() {
     if (!this.file) {
       this.$router.push("/");
       return;
     }
-    const img = this.$refs.img;
-    const offsetLeft = img.offsetLeft;
-    const offsetTop = img.offsetTop;
-    this.$store.dispatch("setImgOffset", {
-      offsetLeft,
-      offsetTop
-    });
+  },
+  mounted() {
+    if (this.$refs.img) {
+      const img = this.$refs.img;
+      const offsetLeft = img.offsetLeft;
+      const offsetTop = img.offsetTop;
+      console.dir(img);
+      this.$store.dispatch("setImgOffset", {
+        offsetLeft,
+        offsetTop
+      });
+    }
   },
   methods: {
     setCameraCoords(e) {
