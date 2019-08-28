@@ -57,6 +57,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  div
-    text-align: center
+
 </style>

@@ -16,7 +16,7 @@
       <span class="camera-circle"></span>
     </div>
 
-    <div class="result" v-if="isResult">
+    <div class="result" v-if="isResult" @keyup.esc="resetIsResult">
       <div class="result-header">
         <span>Here you go!</span>
         <button class="dismiss" @click="resetIsResult">&times;</button>
@@ -67,8 +67,9 @@ export default {
     if (this.$refs.result) {
       const canvas = this.$refs.result;
       const context = canvas.getContext("2d");
-      const x = this.coords.left.replace("px", "");
-      const y = this.coords.top.replace("px", "");
+      const x = Number(this.coords.left.replace("px", ""));
+      const y = Number(this.coords.top.replace("px", ""));
+
       context.drawImage(
         this.img,
         x,
@@ -88,18 +89,18 @@ export default {
       this.isResult = false;
     },
     capture() {
-      const img = this.img.getBoundingClientRect();
-      const camera = this.camera.getBoundingClientRect();
-
-      const imgTop = img.top;
-      const imgBottom = img.bottom;
-      const imgLeft = img.left;
-      const imgRight = img.right;
-
-      const cameraTop = camera.top;
-      const cameraBottom = camera.bottom;
-      const cameraLeft = camera.left;
-      const cameraRight = camera.right;
+      const {
+        top: imgTop,
+        bottom: imgBottom,
+        left: imgLeft,
+        right: imgRight
+      } = this.img.getBoundingClientRect();
+      const {
+        top: cameraTop,
+        bottom: cameraBottom,
+        left: cameraLeft,
+        right: cameraRight
+      } = this.camera.getBoundingClientRect();
 
       if (
         cameraLeft >= imgLeft &&
@@ -119,6 +120,7 @@ export default {
 <style scoped lang="sass">
 canvas
   display: block
+  border: 2px solid white
   
 .result
   position: fixed
