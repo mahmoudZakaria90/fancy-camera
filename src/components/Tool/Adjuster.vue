@@ -19,10 +19,14 @@ export default {
 
   methods: {
     setWidth(e) {
-      bus.$emit("setWidth", e.target.value);
+      if (e.target.value >= this.width) {
+        bus.$emit("setWidth", e.target.value);
+      }
     },
     setHeight(e) {
-      bus.$emit("setHeight", e.target.value);
+      if (e.target.value >= this.height) {
+        bus.$emit("setHeight", e.target.value);
+      }
     }
   }
 };
@@ -30,13 +34,14 @@ export default {
 
 <style scoped lang="sass">
   .adjuster
-    position: fixed
     background: lightblue
+    padding: 15px
+    text-align: center
+    position: fixed
     top: 0
     left: 0
     right: 0
-    padding: 15px
-    text-align: center
+    z-index: 999999
 
   label
     margin: 0 20px

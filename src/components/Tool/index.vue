@@ -1,13 +1,14 @@
 <template v-if="file">
   <div @mousemove="setCameraCoords">
+    <Adjuster :width="cameraWidth" :height="cameraHeight" />
     <img ref="img" :src="file" alt="image" />
     <Camera
       :coordLeft="coordLeft"
       :coordTop="coordTop"
       :width="cameraWidth"
       :height="cameraHeight"
+      :img="img"
     />
-    <Adjuster :width="cameraWidth" :height="cameraHeight" />
   </div>
 </template>
 
@@ -22,7 +23,8 @@ export default {
       cameraWidth: 250,
       cameraHeight: 250,
       coordLeft: 0,
-      coordTop: 0
+      coordTop: 0,
+      img: null
     };
   },
   components: {
@@ -31,7 +33,7 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.file.file;
+      return this.$store.state.file.blob;
     }
   },
   created() {
@@ -42,13 +44,7 @@ export default {
   },
   mounted() {
     if (this.$refs.img) {
-      const img = this.$refs.img;
-      const offsetLeft = img.offsetLeft;
-      const offsetTop = img.offsetTop;
-      this.$store.dispatch("setImgOffset", {
-        offsetLeft,
-        offsetTop
-      });
+      this.img = this.$refs.img;
     }
   },
   methods: {
@@ -61,6 +57,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  img
-    margin-top: 100px
+  div
+    text-align: center
 </style>

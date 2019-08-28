@@ -41,7 +41,8 @@ export default {
   .submit
     @extend %btnStyle
   div
-    margin-top: 60px 
+    margin-top: 60px
+    text-align: center 
   label
     margin-right: 30px
     span

@@ -7,27 +7,17 @@ export default new Vuex.Store({
   strict: true,
   state: {
     file: {
-      file: null,
-      offsetLeft: 0,
-      offsetTop: 0
+      blob: null
     }
   },
   mutations: {
     uploadFile(state, payload) {
-      state.file.file = payload;
-    },
-    setImgOffset(state, payload) {
-      const { offsetLeft, offsetTop } = payload
-      state.file.offsetLeft = offsetLeft;
-      state.file.offsetTop = offsetTop;
+      state.file.blob = payload;
     }
   },
   actions: {
     uploadFile(context, payload) {
       context.commit("uploadFile", payload);
-    },
-    setImgOffset(context, payload) {
-      context.commit('setImgOffset', payload)
     }
   }
 });
