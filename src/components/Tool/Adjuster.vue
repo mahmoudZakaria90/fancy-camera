@@ -2,42 +2,58 @@
   <div class="adjuster">
     <label>
       <span>Width:</span>
-      <input @input="setWidth" type="text" :value="width" />
+      <input :disabled="isResult" @input="setWidth" type="text" :value="width" />
     </label>
     <label>
       <span>Height:</span>
-      <input @input="setHeight" type="text" :value="height" />
+      <input :disabled="isResult" @input="setHeight" type="text" :value="height" />
     </label>
+    <span>Min = 250, Max = Screen resolution</span>
   </div>
 </template>
 
 <script>
+/*eslint no-console: ["error", { allow: ["warn", "dir", "log"] }] */
 import { bus } from "../../main";
 
 export default {
+  data() {
+    return {
+      isResult: false
+    };
+  },
   props: ["width", "height"],
 
   methods: {
     setWidth(e) {
-      bus.$emit("setWidth", e.target.value);
+      if (e.target.value >= this.width && e.target.value <= window.innerWidth) {
+        bus.$emit("setWidth", e.target.value);
+      }
     },
     setHeight(e) {
-      bus.$emit("setHeight", e.target.value);
+      if (
+        e.target.value >= this.height &&
+        e.target.value <= window.innerHeight
+      ) {
+        bus.$emit("setHeight", e.target.value);
+      }
     }
+  },
+  created() {
+    bus.$on("isResult", isResult => (this.isResult = isResult));
   }
 };
 </script>
 
 <style scoped lang="sass">
+  [disabled]
+    opacity: .5
   .adjuster
-    position: absolute
     background: lightblue
-    top: 0
-    left: 0
-    right: 0
     padding: 15px
     text-align: center
-
+    position: relative
+    z-index: 999   
   label
     margin: 0 20px
 </style>

@@ -1,18 +1,19 @@
-<template>
-  <div v-if="file" @mousemove="setCameraCoords">
-    <img v-bind:src="file" alt="image" @mousemove="setImgCoords" />
+<template v-if="file">
+  <div @mousemove="setCameraCoords">
+    <Adjuster :width="cameraWidth" :height="cameraHeight" />
+    <img ref="img" :src="file" alt="image" />
     <Camera
       :coordLeft="coordLeft"
       :coordTop="coordTop"
       :width="cameraWidth"
       :height="cameraHeight"
+      :img="img"
     />
-    <Adjuster :width="cameraWidth" :height="cameraHeight" />
   </div>
 </template>
 
 <script>
-/*eslint no-console: ["error", { allow: ["warn", "log"] }] */
+/*eslint no-console: ["error", { allow: ["warn", "log", "dir"] }] */
 import Adjuster from "./Adjuster";
 import Camera from "./Camera";
 
@@ -22,7 +23,8 @@ export default {
       cameraWidth: 250,
       cameraHeight: 250,
       coordLeft: 0,
-      coordTop: 0
+      coordTop: 0,
+      img: null
     };
   },
   components: {
@@ -31,24 +33,29 @@ export default {
   },
   computed: {
     file() {
-      return this.$store.state.file;
+      return this.$store.state.file.blob;
     }
   },
   created() {
-    !this.file && this.$router.push("/");
+    if (!this.file) {
+      this.$router.push("/");
+      return;
+    }
+  },
+  mounted() {
+    if (this.$refs.img) {
+      this.img = this.$refs.img;
+    }
   },
   methods: {
     setCameraCoords(e) {
-      this.coordLeft = e.clientX;
-      this.coordTop = e.clientY;
-    },
-    setImgCoords(e) {
-      e.stopPropagation();
-      console.log(e);
+      this.coordLeft = e.pageX;
+      this.coordTop = e.pageY;
     }
   }
 };
 </script>
 
-<style>
+<style lang="sass" scoped>
+
 </style>

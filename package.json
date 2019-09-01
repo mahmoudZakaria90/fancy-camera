@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "eslint-utils": "1.4.1",
+    "feather-icons": "^4.24.1",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
