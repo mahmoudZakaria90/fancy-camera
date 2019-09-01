@@ -2,13 +2,12 @@
   <div class="adjuster">
     <label>
       <span>Width:</span>
-      <input @input="setWidth" type="text" :value="width" />
+      <input :disabled="isResult" @input="setWidth" type="text" :value="width" />
     </label>
     <label>
       <span>Height:</span>
-      <input @input="setHeight" type="text" :value="height" />
+      <input :disabled="isResult" @input="setHeight" type="text" :value="height" />
     </label>
-    <button class="adjuster-expand" data-feather="circle"></button>
   </div>
 </template>
 
@@ -17,6 +16,11 @@
 import { bus } from "../../main";
 
 export default {
+  data() {
+    return {
+      isResult: false
+    };
+  },
   props: ["width", "height"],
 
   methods: {
@@ -30,33 +34,22 @@ export default {
         bus.$emit("setHeight", e.target.value);
       }
     }
+  },
+  created() {
+    bus.$on("isResult", isResult => (this.isResult = isResult));
   }
 };
 </script>
 
 <style scoped lang="sass">
+  [disabled]
+    opacity: .5
   .adjuster
     background: lightblue
-    padding: 15px 15px 30px
+    padding: 15px
     text-align: center
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    z-index: 999999
-    &-expand
-      position: absolute
-      bottom: -25px
-      left: 50%
-      transform: translate(-50%)
-      background-color: lightblue
-      width: 50px
-      height: 50px
-      border: none
-      border-radius: 50%
-      text-align: center
-      
-
+    position: relative
+    z-index: 999   
   label
     margin: 0 20px
 </style>

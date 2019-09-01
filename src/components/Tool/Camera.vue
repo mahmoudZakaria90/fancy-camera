@@ -47,6 +47,7 @@ export default {
   created() {
     bus.$on("setWidth", width => (this.mutableWidth = width));
     bus.$on("setHeight", height => (this.mutableHeight = height));
+    this.initSetup();
   },
   computed: {
     coords() {
@@ -67,8 +68,9 @@ export default {
     if (this.$refs.result) {
       const canvas = this.$refs.result;
       const context = canvas.getContext("2d");
+      const adjusterHeight = 54;
       const x = Number(this.coords.left.replace("px", ""));
-      const y = Number(this.coords.top.replace("px", ""));
+      const y = Number(this.coords.top.replace("px", "")) - adjusterHeight;
 
       context.drawImage(
         this.img,
@@ -83,8 +85,17 @@ export default {
       );
       this.resultHref = canvas.toDataURL();
     }
+    bus.$emit("isResult", this.isResult);
   },
   methods: {
+    initSetup() {
+      document.addEventListener("keyup", e => {
+        if (e.key === "Escape" && e.keyCode === 27) {
+          this.resetIsResult();
+        }
+        return;
+      });
+    },
     resetIsResult() {
       this.isResult = false;
     },
@@ -107,11 +118,10 @@ export default {
         cameraRight <= imgRight &&
         (cameraTop >= imgTop && cameraBottom <= imgBottom)
       ) {
-        console.log("Captured!");
         this.isResult = true;
         return;
       }
-      console.log("Not boundry!");
+      return;
     }
   }
 };
@@ -127,7 +137,7 @@ canvas
   top: 50%
   left: 50%
   transform: translate(-50%, -50%)
-  z-index: 9999
+  z-index: 999999
   a
     display: inline-block
     padding: 10px 25px
