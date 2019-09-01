@@ -8,6 +8,7 @@
       <span>Height:</span>
       <input :disabled="isResult" @input="setHeight" type="text" :value="height" />
     </label>
+    <span>Min = 250, Max = Screen resolution</span>
   </div>
 </template>
 
@@ -25,12 +26,15 @@ export default {
 
   methods: {
     setWidth(e) {
-      if (e.target.value >= this.width) {
+      if (e.target.value >= this.width && e.target.value <= window.innerWidth) {
         bus.$emit("setWidth", e.target.value);
       }
     },
     setHeight(e) {
-      if (e.target.value >= this.height) {
+      if (
+        e.target.value >= this.height &&
+        e.target.value <= window.innerHeight
+      ) {
         bus.$emit("setHeight", e.target.value);
       }
     }
