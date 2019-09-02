@@ -16,6 +16,5 @@ export default {};
 }
 img {
   vertical-align: middle;
-  max-width: 100%;
 }
 </style>
