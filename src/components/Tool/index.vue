@@ -1,14 +1,8 @@
 <template v-if="file">
   <div @mousemove="setCameraCoords">
-    <Adjuster :width="cameraWidth" :height="cameraHeight" />
+    <Adjuster />
     <img ref="img" :src="file" alt="image" />
-    <Camera
-      :coordLeft="coordLeft"
-      :coordTop="coordTop"
-      :width="cameraWidth"
-      :height="cameraHeight"
-      :img="img"
-    />
+    <Camera :coordLeft="coordLeft" :coordTop="coordTop" :img="img" />
   </div>
 </template>
 
@@ -20,8 +14,6 @@ import Camera from "./Camera";
 export default {
   data() {
     return {
-      cameraWidth: 250,
-      cameraHeight: 250,
       coordLeft: 0,
       coordTop: 0,
       img: null
