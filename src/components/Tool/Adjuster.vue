@@ -2,11 +2,11 @@
   <div class="adjuster">
     <label>
       <span>Width:</span>
-      <input :disabled="isResult" @input="setWidth" type="text" :value="width" />
+      <input :disabled="isResult" @input="setWidth" type="text" :value="mutableWidth" />
     </label>
     <label>
       <span>Height:</span>
-      <input :disabled="isResult" @input="setHeight" type="text" :value="height" />
+      <input :disabled="isResult" @input="setHeight" type="text" :value="mutableHeight" />
     </label>
     <span>Min = 250, Max = Screen resolution</span>
   </div>
@@ -19,6 +19,8 @@ import { bus } from "../../main";
 export default {
   data() {
     return {
+      mutableWidth: this.width,
+      mutableHeight: this.height,
       isResult: false
     };
   },
@@ -27,6 +29,7 @@ export default {
   methods: {
     setWidth(e) {
       if (e.target.value >= this.width && e.target.value <= window.innerWidth) {
+        this.mutableWidth = e.target.value;
         bus.$emit("setWidth", e.target.value);
       }
     },
@@ -35,6 +38,7 @@ export default {
         e.target.value >= this.height &&
         e.target.value <= window.innerHeight
       ) {
+        this.mutableHeight = e.target.value;
         bus.$emit("setHeight", e.target.value);
       }
     }
