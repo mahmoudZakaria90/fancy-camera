@@ -6,7 +6,7 @@
       class="camera"
       ref="camera"
       :style="{
-      ...coords, width: mutableWidth + 'px', height: mutableHeight + 'px',
+      ...coords, width: cameraSize.width + 'px', height: cameraSize.height + 'px',
     }"
     >
       <div class="camera-square"></div>
@@ -22,7 +22,7 @@
         <button class="dismiss" @click="resetIsResult">&times;</button>
       </div>
 
-      <canvas ref="result" :width="mutableWidth" :height="mutableHeight"></canvas>
+      <canvas ref="result" :width="cameraSize.width" :height="cameraSize.height"></canvas>
 
       <a :href="resultHref" download>Download</a>
     </div>
@@ -34,25 +34,24 @@
 import { bus } from "../../main";
 
 export default {
-  props: ["width", "height", "coordLeft", "coordTop", "img"],
+  props: ["coordLeft", "coordTop", "img"],
   data() {
     return {
-      mutableWidth: this.width,
-      mutableHeight: this.height,
       camera: null,
       resultHref: null,
       isResult: false
     };
   },
   created() {
-    bus.$on("setWidth", width => (this.mutableWidth = width));
-    bus.$on("setHeight", height => (this.mutableHeight = height));
     this.initSetup();
   },
   computed: {
+    cameraSize() {
+      return this.$store.getters.cameraSize;
+    },
     coords() {
-      const width = this.mutableWidth / 2;
-      const height = this.mutableHeight / 2;
+      const width = this.cameraSize.width / 2;
+      const height = this.cameraSize.height / 2;
       return {
         top: this.coordTop - height + "px",
         left: this.coordLeft - width + "px"
@@ -76,12 +75,12 @@ export default {
         this.img,
         x,
         y,
-        this.mutableWidth,
-        this.mutableHeight,
+        this.cameraSize.width,
+        this.cameraSize.height,
         0,
         0,
-        this.mutableWidth,
-        this.mutableHeight
+        this.cameraSize.width,
+        this.cameraSize.height
       );
       this.resultHref = canvas.toDataURL();
     }

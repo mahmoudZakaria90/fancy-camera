@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <input @change="upload" type="file" id="uploader" hidden accept="image/*" />
+  <form @submit.prevent="upload">
+    <input @change="viewFileName" type="file" id="uploader" hidden accept="image/*" />
     <label for="uploader">
       <span>Choose file</span>
       <span>{{fileName}}</span>
     </label>
-    <router-link to="/tool" tag="button" class="submit">Submit</router-link>
-  </div>
+    <button type="submit" class="submit">Submit</button>
+  </form>
 </template>
 
 <script>
+/*eslint no-console: ["error", { allow: ["warn", "log", "dir"] }] */
 export default {
   data() {
     return {
@@ -17,11 +18,21 @@ export default {
     };
   },
   methods: {
-    upload(e) {
-      const files = e.target.files;
+    viewFileName(e) {
+      const { files } = e.target;
+      const [file] = files;
+      const { name } = file;
       if (files.length) {
-        this.fileName = files[0].name;
-        this.$store.dispatch("uploadFile", URL.createObjectURL(files[0]));
+        this.fileName = name;
+      }
+    },
+    upload(e) {
+      const [uploader] = e.target;
+      const { files } = uploader;
+      const [file] = files;
+      if (files.length) {
+        this.$store.dispatch("uploadFile", URL.createObjectURL(file));
+        this.$router.push("/tool");
       }
     }
   }
@@ -40,7 +51,7 @@ export default {
 
   .submit
     @extend %btnStyle
-  div
+  form
     margin-top: 60px
     text-align: center 
   label

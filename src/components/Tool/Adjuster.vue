@@ -2,11 +2,11 @@
   <div class="adjuster">
     <label>
       <span>Width:</span>
-      <input :disabled="isResult" @input="setWidth" type="text" :value="mutableWidth" />
+      <input :disabled="isResult" @input="setWidth" type="text" :value="cameraSize.width" />
     </label>
     <label>
       <span>Height:</span>
-      <input :disabled="isResult" @input="setHeight" type="text" :value="mutableHeight" />
+      <input :disabled="isResult" @input="setHeight" type="text" :value="cameraSize.height" />
     </label>
     <span>Min = 250, Max = Screen resolution</span>
   </div>
@@ -19,27 +19,29 @@ import { bus } from "../../main";
 export default {
   data() {
     return {
-      mutableWidth: this.width,
-      mutableHeight: this.height,
       isResult: false
     };
   },
-  props: ["width", "height"],
-
+  computed: {
+    cameraSize() {
+      return this.$store.getters.cameraSize;
+    }
+  },
   methods: {
     setWidth(e) {
-      if (e.target.value >= this.width && e.target.value <= window.innerWidth) {
-        this.mutableWidth = e.target.value;
-        bus.$emit("setWidth", e.target.value);
+      if (
+        e.target.value >= this.cameraSize.width &&
+        e.target.value <= window.innerWidth
+      ) {
+        this.$store.dispatch("setWidth", e.target.value);
       }
     },
     setHeight(e) {
       if (
-        e.target.value >= this.height &&
+        e.target.value >= this.cameraSize.height &&
         e.target.value <= window.innerHeight
       ) {
-        this.mutableHeight = e.target.value;
-        bus.$emit("setHeight", e.target.value);
+        this.$store.dispatch("setHeight", e.target.value);
       }
     }
   },
