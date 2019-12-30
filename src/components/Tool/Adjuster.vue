@@ -1,11 +1,11 @@
 <template>
   <div class="adjuster">
     <label>
-      <span>Width:</span>
+      <span>Lens width: </span>
       <input :disabled="isResult" @input="setWidth" type="text" :value="cameraSize.width" />
     </label>
     <label>
-      <span>Height:</span>
+      <span>Lens height: </span>
       <input :disabled="isResult" @input="setHeight" type="text" :value="cameraSize.height" />
     </label>
     <span>Min = 250, Max = Screen resolution</span>
@@ -55,11 +55,16 @@ export default {
   [disabled]
     opacity: .5
   .adjuster
-    background: lightblue
+    background: #600cad
+    color: white
     padding: 15px
     text-align: center
     position: relative
     z-index: 999   
   label
     margin: 0 20px
+  input
+    padding: 6px 10px
+    border: none
+    border-radius: 5px
 </style>

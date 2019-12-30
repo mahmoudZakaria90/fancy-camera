@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <div style="text-align: right">
-      <h3 style="display:inline-block; margin: 0 200px 0 0; padding: 10px 0">No UI, not yet!</h3>
+  <div class="hero-outer">
+    <div class="hero-inner">
       <a href="https://github.com/mahmoudZakaria90/fancy-camera">
         <img
           width="149"
@@ -13,19 +12,36 @@
           data-recalc-dims="1"
         />
       </a>
+      <Hero />
     </div>
-    <Header />
-    <Uploader />
   </div>
 </template>
 
 <script>
-import Header from "./Header.vue";
-import Uploader from "./Uploader.vue";
+import Hero from "./Hero.vue";
 export default {
   components: {
-    Header,
-    Uploader
+    Hero
   }
 };
 </script>
+
+
+<style lang="sass" scoped>
+  .hero
+    &-outer
+      height: 100%
+      display: flex
+      align-items: center
+      background: url('../../assets/images/fancy-bg.jpg') no-repeat center center / cover
+      &:before
+        content: ''
+        position: absolute
+        width: 100%
+        height: 100%
+        background-color: rgba(0, 0, 0, .6)
+    &-inner
+      flex-grow: 1
+      position: relative
+      z-index: 9999
+</style>
