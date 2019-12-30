@@ -27,8 +27,6 @@ export default {
   .hero
     background: #efefef
     padding: 25px
-    width: 50%
-    margin: auto
     border-radius: 10px
     text-align: center
     
