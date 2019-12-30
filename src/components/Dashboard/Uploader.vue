@@ -3,9 +3,9 @@
     <input @change="viewFileName" type="file" id="uploader" hidden accept="image/*" />
     <label for="uploader">
       <span>Choose file</span>
-      <span>{{fileName}}</span>
+      <span class="filename">{{fileName}}</span>
     </label>
-    <button type="submit" class="submit">Submit</button>
+    <button type="submit" class="submit" :disabled="fileName === 'No file.'">Submit</button>
   </form>
 </template>
 
@@ -43,7 +43,7 @@ export default {
 <style scoped lang="sass">
   %btnStyle
     padding: 5px 8px
-    background: lightblue
+    background: blueviolet
     color: white
     border-radius: 5px
     cursor: pointer
@@ -51,9 +51,25 @@ export default {
 
   .submit
     @extend %btnStyle
+    &:disabled
+      background-color: #cad0d2
+      color: blueviolet
+      cursor: not-allowed
+      opacity: 0.5
+
+  .filename
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+    display: inline-block
+    max-width: 290px
+    vertical-align: middle
+
   form
-    margin-top: 60px
-    text-align: center 
+    text-align: center
+    padding: 25px
+    background-color: white
+    border-radius: 10px
   label
     margin-right: 30px
     span
