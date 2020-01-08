@@ -1,29 +1,8 @@
 # fancy-camera
+Image cropper using camera capturing method.
 
-## Project setup
-```
-yarn install
-```
+## Upcoming features
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* Cropper canvas with adjust pointers (Drag & Drop).
+* Drag & Drop files of the uploader form.
+* New UI.
