@@ -1,4 +1,4 @@
-# fancy-camera
+# Fancy-camera
 Image cropper using camera capturing method.
 
 ## Upcoming features
